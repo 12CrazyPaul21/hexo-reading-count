@@ -1,0 +1,27 @@
+{
+  "name": "hexo-reading-count",
+  "version": "1.0.0",
+  "description": "hexo article reading count",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "huzhiqin",
+  "keywords": [
+    "hexo",
+    "next",
+    "pv"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/12CrazyPaul21/hexo-reading-count.git"
+  },
+  "bugs": {
+    "url": "https://github.com/12CrazyPaul21/hexo-reading-count/issues"
+  },
+  "homepage": "https://github.com/12CrazyPaul21/hexo-reading-count#readme",
+  "dependencies": {
+    "hexo-renderer-swig": "^2.0.0"
+  }
+}
