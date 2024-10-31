@@ -1,6 +1,6 @@
-document.addEventListener('DOMContentLoaded', () => {
-    'use strict';
+'use strict';
 
+(()=> {
     const fetchPVs = (posts) => {
         axios({
             method: 'get',
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    const init = function() {
+    const refreshPV = function() {
         if (CONFIG.page.isHome) {
             let posts = {};
             document.querySelectorAll('.post-reading-count').forEach((tag) => {
@@ -58,17 +58,30 @@ document.addEventListener('DOMContentLoaded', () => {
                     tag: tag
                 };
             });
-            fetchPVs(posts);
+
+            if (Object.getOwnPropertyNames(posts).length != 0) {
+                fetchPVs(posts);
+            }
         } else {
             let tag = document.querySelector('.post-reading-count');
-            fetchAndIncrease({
-                id: tag.getAttribute('data-post-id').toString(),
-                title: tag.getAttribute('data-post-title'),
-                tag: tag
-            });
+            if (tag) {
+                fetchAndIncrease({
+                    id: tag.getAttribute('data-post-id').toString(),
+                    title: tag.getAttribute('data-post-title'),
+                    tag: tag
+                });
+            }
         }
     };
 
-    init();
-});
-  
+    if (NexT != undefined && 'boot' in NexT) {
+        let nextRefresh = NexT.boot.refresh;
+        NexT.boot.refresh = () => {
+            nextRefresh();
+            refreshPV();
+        };
+    } else {
+        document.addEventListener('DOMContentLoaded', refreshPV);
+        document.addEventListener('pjax:success', refreshPV);
+    }
+})();
