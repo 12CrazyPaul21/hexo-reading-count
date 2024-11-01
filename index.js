@@ -10,7 +10,8 @@ hexo.config.reading_count = Object.assign({
     count: "阅读次数",
     post_meta_order: 0,
     increase_url: '',
-    fetch_url: ''
+    fetch_url: '',
+    axios: 'https://cdn.jsdelivr.net/npm/axios@1.7.7/dist/axios.min.js'
 }, hexo.config.reading_count);
 
 function isEnabled() {
@@ -37,22 +38,14 @@ if (isEnabled()) {
         `, {}, {}, hexo.config.reading_count.post_meta_order);
     }, 0);
 
-    // hexo.extend.injector.register('head_end', () => {
-    //     return js('https://cdn.jsdelivr.net/npm/axios@1.7.7/dist/axios.min.js');
-    // }, 'home');
-    // hexo.extend.injector.register('head_end', () => {
-    //     return js('https://cdn.jsdelivr.net/npm/axios@1.7.7/dist/axios.min.js');
-    // }, 'post');
+    // hexo.extend.injector.register('head_end', () => { return js(hexo.config.reading_count.axios); }, 'home');
+    // hexo.extend.injector.register('head_end', () => { return js(hexo.config.reading_count.axios); }, 'post');
 
     // hexo.extend.injector.register('body_end', () => { return js('/js/pv.js'); }, 'home');
     // hexo.extend.injector.register('body_end', () => { return js('/js/pv.js'); }, 'post');
 
-    hexo.extend.injector.register('body_end', () => {
-        return js('https://cdn.jsdelivr.net/npm/axios@1.7.7/dist/axios.min.js');
-    });
-    hexo.extend.injector.register('body_end', () => {
-        return js('/js/pv.js');
-    });
+    hexo.extend.injector.register('body_end', () => { return js(hexo.config.reading_count.axios); });
+    hexo.extend.injector.register('body_end', () => { return js('/js/pv.js'); });
 
     hexo.extend.generator.register("copy_plugin_scripts", function (locals) {
         return {
